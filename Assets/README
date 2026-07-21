@@ -1,0 +1,21 @@
+# Assets Directory README
+
+## Purpose
+
+This directory is for image/video/etc assets that you may use in your widgets.
+
+## Large Files
+
+You may want to consider other backup/version control options for large files
+
+## Supported file formats
+
+- ".html"
+- ".css"
+- ".js"
+- ".svg"
+- ".png"
+- ".jpg"
+- ".jpeg"
+- ".gif"
+- ".webp"

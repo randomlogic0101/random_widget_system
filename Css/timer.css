@@ -1,0 +1,23 @@
+#timer-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#timer.blinking {
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+
+  0%,
+  50% {
+    opacity: 1;
+  }
+
+  51%,
+  100% {
+    opacity: .25;
+  }
+}
+

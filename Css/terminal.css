@@ -1,0 +1,47 @@
+.terminal-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 6px;
+}
+
+
+#command {
+
+    height: 50px;
+
+    background: #111;
+    color: #ddd;
+
+    border: 1px solid #555;
+    border-radius: 3px;
+
+    padding: 6px;
+
+    font-family: monospace;
+    font-size: 12px;
+}
+
+
+#output {
+
+    flex: 1;
+
+    background: #000;
+
+    color: #00ff66;
+
+    padding: 8px;
+
+    overflow-y: auto;
+
+    white-space: pre-wrap;
+
+    font-family:
+        "Courier New",
+        monospace;
+
+    font-size: 12px;
+
+}

@@ -1,0 +1,13 @@
+# Random Widget System
+
+## Description
+
+The Random Widget System provides the following componnets
+
+1. Minimal Python webserve that provides basic routes, and json data persistence
+2. A collection of widgets with a common CSS
+3. A settings widget suitable for embedding as an OBS "Custom Dock"
+
+## License Note
+
+While the license is generally the MIT license, the common's clause has been added to prevent unauthorized commerical use. If you are interested in using the software in a commercial way, please contact the right's holder for a discussion

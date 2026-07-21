@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Tasks</title>
+    <link rel="stylesheet" href="/Css/obs-widget.css">
+    <link rel="stylesheet" href="/Css/tasks.css">
+  </head>
+  <body>
+    <div id="task-widget" class="widget-box widget-column">
+      <div class="widget-header">
+        <h2 class="widget-title">
+          Tasks
+        </h2>
+        <div id="task-controls" class="widget-controls">
+          <input
+            id="new-task"
+            class="widget-input"
+            type="text"
+            placeholder="New task..."
+          >
+          <button
+            id="add-task"
+            class="widget-button widget-button-success">
+            Add
+          </button>
+          <button
+            id="delete-completed"
+            class="widget-button">
+            Clear
+          </button>
+        </div>
+      </div>
+      <div id="task-list"></div>
+    </div>
+     <script src="/Scripts/tasks.js"></script>
+  </body>
+</html>
+

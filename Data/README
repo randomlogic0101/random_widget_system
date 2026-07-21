@@ -1,0 +1,9 @@
+# Data Directory README
+
+## Purpose
+
+This directory is required for webserver startup. The webserver will place all persistant json data files in this directory, and this directory only.
+
+## Forking
+
+Be sure to restrict private data from any repo's you post online. The files in this directory are typically meant to be private, and specific to a single instance of the server.

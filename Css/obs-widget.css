@@ -1,0 +1,154 @@
+/*
+ * OBS Widget Theme
+ */
+
+:root {
+
+/*
+ * Colors
+ */
+
+  --color-widget: rgba(128,0,255,.35);
+  --color-shadow: rgba(100,0,200,.15);
+  --color-text: #ffffff;
+  --color-text-soft: #f5eaff;
+  --color-accent: #aa5aff;
+  --color-accent-soft: #d8b4ff;
+  --color-bg: rgba(25, 10, 45, 0.78);
+  --color-border: rgba(170, 90, 255, 0.35);
+  --color-button: rgba(170, 90, 255, 0.35);
+  --color-button-soft: rgba(170, 190, 255, 0.35);
+  --color-input: rgba(255, 255, 255, 0.08);
+
+/*
+ * Layout
+ */
+
+  --widget-width: 560px;
+  --widget-height: 260px;
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 12px;
+  --space-lg: 20px;
+  --radius: 12px;
+
+/*
+ * Typography
+ */
+
+  --font-family: Arial, Helvetica, sans-serif;
+  --font-size-base: 20px;
+  --font-size-large: 28px;
+  --font-size-xlarge: 52px;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  font-family: var(--font-family);
+  color: var(--color-text);
+}
+
+/*
+ * Widget Container
+ */
+
+.widget-box {
+  box-sizing: border-box;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  backdrop-filter: blur(8px);
+  box-shadow:
+    0 0 15px var(--color-widget),
+    inset 0 0 20px var(--color-shadow);
+  color: var(--color-text-soft);
+  padding: var(--space-lg);
+}
+
+/*
+ * Widget Layout Helpers
+ */
+
+.widget-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.widget-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-md);
+}
+
+.widget-controls {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: center;
+}
+
+/*
+ * Typography
+ */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+  font-weight: bold;
+}
+
+.widget-title {
+  font-size: var(--font-size-large);
+  color: var(--color-accent-soft);
+}
+
+.widget-text {
+  font-size: var(--font-size-base);
+}
+
+.widget-value {
+  font-size: var(--font-size-xlarge);
+}
+
+/*
+ * Shared Controls
+ */
+
+.widget-input,
+.widget-button {
+  border-radius: 6px;
+  padding: var(--space-xs) var(--space-md);
+  font-size: var(--font-size-base);
+}
+
+.widget-input {
+  background: var(--color-input);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+}
+
+.widget-button {
+  cursor: pointer;
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  background: var(--color-button);
+}
+
+.widget-button-success {
+  background: var(--color-button-soft);
+}
+

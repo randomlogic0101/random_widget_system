@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Timer Settings</title>
+
+<link rel="stylesheet" href="Css/obs-dock.css">
+
+</head>
+
+
+<body>
+
+
+<form class="dock-form" id="settings-form">
+
+
+  <div class="form-row">
+
+    <label for="message-input">
+      Message
+    </label>
+
+    <input
+      type="text"
+      id="message-input"
+      value="Stream Starting In:"
+      autocomplete="off">
+
+  </div>
+
+
+
+  <div class="form-row">
+
+    <label>
+      Duration
+    </label>
+
+
+    <div class="field-row">
+
+
+      <div class="field">
+
+        <span>
+          Hours
+        </span>
+
+        <input
+          type="number"
+          id="hours-input"
+          min="0"
+          max="99"
+          value="00">
+
+      </div>
+
+
+
+      <div class="field">
+
+        <span>
+          Minutes
+        </span>
+
+        <input
+          type="number"
+          id="minutes-input"
+          min="0"
+          max="59"
+          value="05">
+
+      </div>
+
+
+
+      <div class="field">
+
+        <span>
+          Seconds
+        </span>
+
+        <input
+          type="number"
+          id="seconds-input"
+          min="0"
+          max="59"
+          value="00">
+
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+
+  <div class="button-row">
+
+
+    <button
+      type="submit"
+      class="btn-primary">
+
+      Apply &amp; Start
+
+    </button>
+
+
+
+    <button
+      type="button"
+      class="btn-secondary"
+      id="stop-btn">
+
+      Stop Timer
+
+    </button>
+
+
+  </div>
+
+
+
+  <hr>
+
+
+
+  <div class="form-row">
+
+
+    <label for="task-input">
+      Add Task
+    </label>
+
+
+    <div class="field-row">
+
+
+      <input
+        type="text"
+        id="task-input"
+        placeholder="Enter task text"
+        autocomplete="off">
+
+
+      <button
+        type="button"
+        class="btn-primary"
+        id="add-task-btn">
+
+        Add
+
+      </button>
+
+
+    </div>
+
+
+  </div>
+
+
+
+  <div class="form-row">
+
+
+    <label for="delete-task-index">
+      Delete Task
+    </label>
+
+
+    <div class="field-row">
+
+
+      <input
+        type="number"
+        id="delete-task-index"
+        min="0"
+        placeholder="Task index">
+
+
+      <button
+        type="button"
+        class="btn-secondary"
+        id="delete-task-btn">
+
+        Delete
+
+      </button>
+
+
+    </div>
+
+
+  </div>
+
+
+
+  <div
+    class="status"
+    id="status">
+
+  </div>
+
+
+
+</form>
+
+
+
+<script src="Scripts/timer_settings.js"></script>
+
+
+</body>
+
+</html>
+

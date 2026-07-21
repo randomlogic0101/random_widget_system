@@ -1,0 +1,153 @@
+/*
+ * Tasks Widget Specific CSS
+ */
+
+#task-widget {
+  width: var(--widget-width);
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#task-list {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.task-row {
+  display: flex;
+  align-items: center;
+  height: 26px;
+  margin-bottom: var(--space-xs);
+  overflow: hidden;
+}
+
+.task-text-container {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  padding-left: var(--space-sm);
+}
+
+.task-text {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.task-row.completed {
+  opacity: .55;
+  text-decoration: line-through;
+}
+
+.task-order {
+  min-width: 2.5em;
+  text-align: right;
+  padding-right: .5em;
+  cursor: pointer;
+  user-select: none;
+}
+
+.drag-handle,
+.task-status {
+  width: 28px;
+  flex-shrink: 0;
+}
+
+/*
+ * Vertical page scrolling
+ */
+
+#task-scroll {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+#task-scroll.vertical-scroll {
+  animation:
+    task-vertical-marquee
+    var(--scroll-time)
+    ease-in-out
+    infinite;
+}
+
+@keyframes task-vertical-marquee {
+
+  0%,
+  15% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform:
+      translateY(
+        var(--scroll-distance)
+      );
+  }
+
+  85%,
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/*
+ * Horizontal task marquee
+ */
+
+.task-text.marquee {
+  animation:
+    task-marquee
+    8s
+    ease-in-out
+    infinite
+    alternate;
+}
+
+@keyframes task-marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform:
+      translateX(calc(-1 * var(--marquee-distance)));
+  }
+}
+
+/*
+ * Task status
+ */
+
+.task-status {
+  width: 28px;
+  height: 26px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.task-row.completed {
+  opacity: .55;
+  text-decoration: line-through;
+}
+
+.task-row.todo .task-status::after {
+  content: "○";
+}
+
+.task-row.started .task-status::after {
+  content: "◷";
+}
+
+.task-row.completed .task-status::after {
+  content: "✓";
+}
+

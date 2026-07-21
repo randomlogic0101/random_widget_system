@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="/Css/obs-dock.css">
+    <link rel="stylesheet" href="/Css/terminal.css">
+  </head
+  <body>
+    <div class="terminal-container">
+      <textarea id="command">
+        nix develop && Scripts/restart_server.py
+      </textarea>
+      <button class="btn-primary" id="run"> Run </button>
+      <pre id="output"></pre>
+    </div>
+    <script src="/Scripts/terminal.js"></script>
+  </body>
+</html>
