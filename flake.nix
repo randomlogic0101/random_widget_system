@@ -17,6 +17,7 @@
         # Don't forget to add python packages here
         websockets
       ]);
+      venvDir = "Scripts/PythonEnv";
 
     in {
       devShells.${system}.default = pkgs.mkShell {
@@ -27,9 +28,16 @@
         ];
 
         shellHook = ''
+          if [ -d "${venvDir}" ]; then
+            echo "venv '${venvDir}' ready"
+          else
+            echo "Creating Python venv"
+            python3 -m venv "${venvDir}"
+          fi
+          source "${venvDir}/bin/activate"
+          python -m pip install -r requirements.txt
           echo "Python widget server environment"
           echo "Run: python3 server.py"
-          echo
 
           export PYTHONPATH="$PWD"
         '';
