@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stream Video Player</title>
+    <link rel="stylesheet" href="../Css/obs-widget.css">
+    <link rel="stylesheet" href="../Css/timer.css">
+    <script>
+      // TODO set transparent when finished playing
+      // TODO Create new endpoint to set video file
+      function getVideoFilename(){
+        return (new URLSearchParams(window.location.search)).get('video');
+      }
+
+      function setVideoSource(){
+        var vid = document.createElement("video");
+        vid.setAttribute("src", `/Assets/Videos/${getVideoFilename()}`);
+        vid.setAttribute("width", "320");
+        vid.setAttribute("autoplay", "autoplay")
+        document.getElementById("video-box").appendChild(vid);
+      }
+      
+      window.addEventListener("DOMContentLoaded", (event) => {
+        setVideoSource();
+      });
+    </script>
+  </head>
+  <body>
+    <div id="video-box" class="widget-box widget-column">
+    </div>
+
+  </body>
+</html>

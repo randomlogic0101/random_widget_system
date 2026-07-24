@@ -140,6 +140,7 @@ class Handler(BaseHTTPRequestHandler):
       ".jpeg": "image/jpeg",
       ".gif": "image/gif",
       ".webp": "image/webp",
+      ".webm": "video/webm",
     }
 
     for extension, content_type in content_types.items():
@@ -166,6 +167,8 @@ class Handler(BaseHTTPRequestHandler):
       "/timer": ("Html/timer.html",
         "text/html; charset=utf-8"),
       "/terminal": ("Html/terminal.html",
+        "text/html; charset=utf-8"),
+      "/video" : ( "Html/video.html",
         "text/html; charset=utf-8"),
     }
 
