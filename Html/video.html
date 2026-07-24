@@ -4,31 +4,109 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stream Video Player</title>
+
     <link rel="stylesheet" href="../Css/obs-widget.css">
     <link rel="stylesheet" href="../Css/timer.css">
+
+    <style>
+      #video-box {
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
+      }
+    </style>
+
     <script>
-      // TODO set transparent when finished playing
-      // TODO Create new endpoint to set video file
-      function getVideoFilename(){
-        return (new URLSearchParams(window.location.search)).get('video');
+      const RETRY_DELAY = 1000;
+
+      let videoElement;
+      let playing = false;
+
+      async function getNextVideo() {
+        try {
+          const response = await fetch("/api/video");
+          const data = await response.json();
+          return data.video;
+        }
+        catch (error) {
+          console.error("Failed to fetch next video:", error);
+          return null;
+        }
       }
 
-      function setVideoSource(){
-        var vid = document.createElement("video");
-        vid.setAttribute("src", `/Assets/Videos/${getVideoFilename()}`);
-        vid.setAttribute("width", "320");
-        vid.setAttribute("autoplay", "autoplay")
-        document.getElementById("video-box").appendChild(vid);
+      async function requestNextVideo() {
+        if (playing)
+          return;
+
+        const filename = await getNextVideo();
+
+        if (!filename) {
+          setTimeout(requestNextVideo, RETRY_DELAY);
+          return;
+        }
+
+        playVideo(filename);
       }
-      
-      window.addEventListener("DOMContentLoaded", (event) => {
-        setVideoSource();
+
+      function playVideo(filename) {
+        playing = true;
+
+        const box = document.getElementById("video-box");
+
+        box.style.opacity = "1";
+
+        videoElement.src = `/Assets/Videos/${filename}`;
+        videoElement.load();
+
+        videoElement.play().catch(error => {
+          console.error("Playback failed:", error);
+
+          playing = false;
+          box.style.opacity = "0";
+
+          setTimeout(requestNextVideo, RETRY_DELAY);
+        });
+      }
+
+      function getVideoFilenameFromURL() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get("video");
+      }
+
+      window.addEventListener("DOMContentLoaded", () => {
+
+        videoElement = document.createElement("video");
+        videoElement.width = 320;
+        videoElement.autoplay = true;
+
+        videoElement.addEventListener("ended", () => {
+
+          playing = false;
+
+          document.getElementById("video-box").style.opacity = "0";
+
+          // Immediately request the next queued video.
+          requestNextVideo();
+        });
+
+        document
+          .getElementById("video-box")
+          .appendChild(videoElement);
+
+        // Optional: allow a startup video via ?video=filename.webm
+        const startupVideo = getVideoFilenameFromURL();
+
+        if (startupVideo) {
+          playVideo(startupVideo);
+        } else {
+          requestNextVideo();
+        }
       });
     </script>
   </head>
-  <body>
-    <div id="video-box" class="widget-box widget-column">
-    </div>
 
+  <body>
+    <div id="video-box" class="widget-box widget-column"></div>
   </body>
 </html>
+
+

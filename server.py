@@ -4,6 +4,8 @@ import subprocess
 import threading
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from urllib.parse import urlparse, parse_qs
+from collections import deque
+
 
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -15,6 +17,7 @@ SETTINGS = {
   "startedAt": 0
 }
 TERMINAL_PROCESS = None
+video_queue = deque()
 
 
 def read_json(filename):
@@ -151,12 +154,38 @@ class Handler(BaseHTTPRequestHandler):
     return False
 
 
+  def play_video(self):
+    try:
+        data = json.loads(self.get_request_body())
+
+        filename = data.get("video")
+        if filename:
+            video_queue.append(filename)
+
+        self.send_ok()
+
+    except Exception as error:
+        self.send_error_json(error)
+
+
+  def get_next_video(self):
+    if video_queue:
+        self.send_json({
+            "video": video_queue.popleft()
+        })
+    else:
+        self.send_json({
+            "video": None
+        })
+
+
   def do_GET(self):
     path = urlparse(self.path).path
 
     routes = {
       "/api/settings": self.get_settings,
       "/api/json": self.get_json,
+      "/api/video": self.get_next_video,
     }
 
     widget_routes = {
@@ -211,6 +240,7 @@ class Handler(BaseHTTPRequestHandler):
     routes = {
       "/api/settings": self.update_settings,
       "/api/json": self.update_json,
+      "/api/video": self.play_video,
     }
 
     handler = routes.get(path)

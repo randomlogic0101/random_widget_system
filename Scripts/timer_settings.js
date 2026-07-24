@@ -1,6 +1,7 @@
 const formEl = document.getElementById("settings-form");
 const statusEl = document.getElementById("status");
 const stopBtn = document.getElementById("stop-btn");
+const playVideoBtn = document.getElementById("play-video-btn");
 
 
 function setStatus(message)
@@ -47,20 +48,24 @@ formEl.addEventListener(
 
   const message =
     document.getElementById("message-input")
-    .value
-    .trim();
+      .value
+      .trim();
+
   const hours =
     parseInt(
       document.getElementById("hours-input").value
     ) || 0;
+
   const minutes =
     parseInt(
       document.getElementById("minutes-input").value
     ) || 0;
+
   const seconds =
     parseInt(
       document.getElementById("seconds-input").value
     ) || 0;
+
   const totalSeconds =
     (hours * 3600) +
     (minutes * 60) +
@@ -121,14 +126,15 @@ stopBtn.addEventListener(
         {
           message:
             document
-            .getElementById("message-input")
-            .value
-            .trim(),
+              .getElementById("message-input")
+              .value
+              .trim(),
           duration: 0,
           running: false,
           startedAt: 0
         })
     });
+
     setStatus("Timer stopped");
 
   } catch (error) {
@@ -179,7 +185,6 @@ async function addTask()
     return;
   }
 
-
   try {
 
     const data = await loadTasks();
@@ -187,7 +192,6 @@ async function addTask()
     if (!Array.isArray(data.tasks)) {
       data.tasks = [];
     }
-
 
     const now = Date.now();
 
@@ -202,13 +206,11 @@ async function addTask()
       completed: null
     });
 
-
     await saveTasks(data);
 
     input.value = "";
 
     setStatus("Task added ✓");
-
 
   } catch (error) {
 
@@ -217,58 +219,49 @@ async function addTask()
   }
 }
 
+
 async function deleteTask()
 {
   const order =
     parseInt(
       document
-      .getElementById("delete-task-index")
-      .value
+        .getElementById("delete-task-index")
+        .value
     );
-
 
   if (Number.isNaN(order)) {
     setStatus("Enter task order");
     return;
   }
 
-
   try {
 
     const data = await loadTasks();
-
 
     if (!Array.isArray(data.tasks)) {
       setStatus("No tasks found");
       return;
     }
 
-
     const index =
       data.tasks.findIndex(
         task => task.order === order
       );
-
 
     if (index === -1) {
       setStatus("Task not found");
       return;
     }
 
-
     data.tasks.splice(index, 1);
 
-
     await saveTasks(data);
-
 
     document
       .getElementById("delete-task-index")
       .value = "";
 
-
     setStatus("Task deleted ✓");
-
 
   } catch (error) {
 
@@ -277,17 +270,64 @@ async function deleteTask()
   }
 }
 
+
+async function playVideo()
+{
+  const input = document.getElementById("video-input");
+  const filename = input.value.trim();
+
+  if (!filename) {
+    setStatus("Video filename required");
+    return;
+  }
+
+  try {
+
+    const response = await fetch("/api/video",
+    {
+      method: "POST",
+      headers:
+      {
+        "Content-Type": "application/json"
+      },
+      body:
+        JSON.stringify(
+        {
+          video: filename
+        })
+    });
+
+    if (!response.ok) {
+      throw new Error("Bad response");
+    }
+
+    input.value = "";
+
+    setStatus("Video queued ✓");
+
+  } catch (error) {
+
+    setStatus("Could not play video");
+
+  }
+}
+
+
 addTaskBtn.addEventListener(
   "click",
   addTask
 );
-
 
 deleteTaskBtn.addEventListener(
   "click",
   deleteTask
 );
 
+playVideoBtn.addEventListener(
+  "click",
+  playVideo
+);
 
 
 loadInitial();
+
